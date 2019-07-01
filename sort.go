@@ -12,7 +12,7 @@ type bodyWrapper struct {
 	SortFunc SortFuncType
 }
 
-//排序方法
+//SortFuncType 排序方法
 type SortFuncType func(p, q *interface{}) bool
 
 //实现sort接口
@@ -28,12 +28,12 @@ func (bw bodyWrapper) Less(i, j int) bool {
 	return bw.SortFunc(&bw.Body[i], &bw.Body[j])
 }
 
-//外部使用 通用排序方法
+//Sort 外部使用 通用排序方法
 func Sort(body []interface{}, sortFunc SortFuncType) {
 	sort.Sort(bodyWrapper{body, sortFunc})
 }
 
-//指定字段排序
+//SortField 指定字段排序
 func SortField(body []interface{}, field string) {
 	Sort(body, func(p, q *interface{}) bool {
 		v := reflect.ValueOf(*p)

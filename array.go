@@ -18,18 +18,21 @@ type Array struct {
 
 //NewArray 传入一个map 默认key asc排序
 func NewArray(data ...map[string]interface{}) *Array {
-	if len(data) == 0 {
-		return new(Array)
-	}
+	var body map[string]interface{}
 	var Keys []string
-	for k := range data[0] {
-		Keys = append(Keys, k)
+	if len(data) == 0 {
+		body = make(map[string]interface{})
+	} else {
+		body = data[0]
+		for k := range data[0] {
+			Keys = append(Keys, k)
+		}
+		sort.Strings(Keys)
 	}
-	sort.Strings(Keys)
-
 	res := Array{
-		Body: data[0],
-		Keys: Keys,
+		Body:         body,
+		Keys:         Keys,
+		ParamForSort: make(map[string]interface{}),
 		//默认给一个 desc排序方法
 		sortFunc: func(arr *Array, i, j int) bool {
 			return arr.Keys[i] > arr.Keys[j]
@@ -48,7 +51,6 @@ func (p *Array) Insert(k string, v interface{}, i int) error {
 	if len(p.Keys) > i {
 		tmp := append(p.Keys[:i], k)
 		p.Keys = append(tmp, p.Keys[i:]...)
-		return nil
 	} else {
 		p.Keys = append(p.Keys, k)
 	}
