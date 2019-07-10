@@ -1,6 +1,8 @@
 package goutil
 
-import "reflect"
+import (
+	"reflect"
+)
 
 //InSlice 判断是否存在slice 中
 func InSlice(n, slice interface{}) (ok bool) {
