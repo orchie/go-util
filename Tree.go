@@ -1,7 +1,5 @@
 package goutil
 
-import "fmt"
-
 //Tree 树形结构
 type Tree struct {
 	ID       int
@@ -73,6 +71,6 @@ func sliceToTreeLoop(s *[]TreeItf, pid int) (t []TreeItf) {
 			// fmt.Printf("id:%d over s 长度 %d\n", vv.GetID(), len(*s))
 		}
 	}
-	fmt.Printf("\n")
+	// fmt.Printf("\n")
 	return t
 }
